@@ -178,7 +178,7 @@ async function fetchSearchWeatherInfo(city){
         renderWeatherInfo(data);
     }
     catch(err){
-         loadingScreen.classList.remove("active");
+         loadingScreen.classList.add("active");
          errorContainer.classList.add("active");
 
       
