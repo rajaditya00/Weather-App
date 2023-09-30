@@ -61,7 +61,7 @@ font-family: 'Roboto', sans-serif; */
 
 .wrapper{
    width:100vw;
-    height:100vw; 
+    height:100vh; 
       
     color:var(--colorLight2);
     background-image: linear-gradient(160deg,#112d4e 0%,#2661b4 100%);
