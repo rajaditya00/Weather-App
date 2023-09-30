@@ -162,27 +162,61 @@ searchForm.addEventListener("submit",(e)=>{
     fetchSearchWeatherInfo(searchInput.value);
 })
 
-async function fetchSearchWeatherInfo(city){
+// async function fetchSearchWeatherInfo(city){
+//     loadingScreen.classList.add("active");
+//     userInfoContainer.classList.remove("active");
+//     grantAccessContainer.classList.remove("active");
+//     errorContainer.classList.remove("active");
+
+
+//     try{
+//         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
+//         const data = await response.json();
+//         loadingScreen.classList.remove("active");
+//         // loadingScreen.classList.add("active");
+//         userInfoContainer.classList.add("active");
+//         renderWeatherInfo(data);
+//     }
+//     catch(err){
+//          loadingScreen.classList.add("active");
+//          errorContainer.classList.add("active");
+
+      
+
+//     }
+
+// }
+
+
+async function fetchSearchWeatherInfo(city) {
     loadingScreen.classList.add("active");
     userInfoContainer.classList.remove("active");
     grantAccessContainer.classList.remove("active");
     errorContainer.classList.remove("active");
 
-
-    try{
+    try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}&units=metric`);
         const data = await response.json();
+
+        if (response.status === 404) {
+            // City not found
+            loadingScreen.classList.remove("active");
+            errorContainer.classList.add("active");
+            errorContainer.querySelector(".error-message").textContent = "Sorry, city not found";
+        } else if (response.ok) {
+            // Data retrieved successfully
+            loadingScreen.classList.remove("active");
+            userInfoContainer.classList.add("active");
+            renderWeatherInfo(data);
+        } else {
+            // Handle other API errors here
+            loadingScreen.classList.remove("active");
+            errorContainer.classList.add("active");
+            errorContainer.querySelector(".error-message").textContent = "An error occurred while fetching weather data.";
+        }
+    } catch (err) {
         loadingScreen.classList.remove("active");
-        // loadingScreen.classList.add("active");
-        userInfoContainer.classList.add("active");
-        renderWeatherInfo(data);
+        errorContainer.classList.add("active");
+        errorContainer.querySelector(".error-message").textContent = "An error occurred while fetching weather data.";
     }
-    catch(err){
-         loadingScreen.classList.add("active");
-         errorContainer.classList.add("active");
-
-      
-
-    }
-
 }
