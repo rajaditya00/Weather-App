@@ -30,7 +30,11 @@
 
 }
  */
-
+@media (max-width: 480px) {
+    body {
+        background-image: url(images/background-mobile.jpg);
+    }
+}
 
 /* 
  font-family: 'Cairo Play', sans-serif;
