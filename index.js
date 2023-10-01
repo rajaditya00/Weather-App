@@ -8,6 +8,8 @@ const searchForm = document.querySelector("[data-searchForm]");
 const loadingScreen = document.querySelector(".loading-container");
 const userInfoContainer = document.querySelector(".user-info-container");
 const errorContainer =document.querySelector("[error-container]");
+const dateTimeContainer = document.querySelector("#currentDateTime");
+
 
 // initial variable needs
 
@@ -220,3 +222,25 @@ async function fetchSearchWeatherInfo(city) {
         errorContainer.querySelector(".error-message").textContent = "An error occurred while fetching weather data.";
     }
 }
+
+
+
+function getCurrentDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+    const formattedDateTime = now.toLocaleDateString('en-US', options);
+
+    return formattedDateTime;
+}
+
+function updateCurrentDateTime() {
+    const currentDateTime = getCurrentDateTime();
+    dateTimeContainer.textContent = `${currentDateTime}`;
+}
+
+// Call the function to update the date and time initially
+updateCurrentDateTime();
+
+// Update the date and time every 1 second (1000 milliseconds)
+setInterval(updateCurrentDateTime, 1000);
+
